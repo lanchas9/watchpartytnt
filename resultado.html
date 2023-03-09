@@ -5,57 +5,61 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>SIEGFRIED - Encuentro de Expertos</title>
+    <title>watchpartytnt.com</title>
 </head>
 <body onload="cargaResultados()">
-    <div class="centrado">
-        <img src="img/logo1.png" alt="" srcset="" class="logoTitulo">
-    </div>
-    <hr class="divisionRojaArriba">
+    <img src="img/banner.jpg" alt="" srcset="" class="logoTitulo">
+    <hr class="divisionMoradaArriba">
     <div class="divCentrado">
         <span class="textoTitulo">Resultado</span>
     </div>
-    <hr class="divisionRojaAbajo">
+    <hr class="divisionMoradaAbajo">
     
     <p class="texto">Tuviste: </p>
-    <p class="mensajeError grande" id="numeroAciertos">1 / 6 </p>
+    <p class="mensajeResultado grande" id="numeroAciertos">1 / 6 </p>
     <p class="texto">aciertos </p>
     <p class="texto oculto centrado" id="textoGanador">
-        ¡Felicidades! <br>
-        Revisa tu correo para <br>
-        tener un código QR de <br>
-        participación
+    <p class="texto">con un tiempo de: </p>
+    <p class="mensajeResultado grande" id="textotiempoCuestionario"> </p>
+    <p class="texto centrado" id="">
+        Gracias por tu participación! <br>
+        Presentaremos al ganador al final del evento <br>
     </p>
 
     <p class="texto oculto centrado" id="textoPerdedor">
         ¡Gracias por participar! <br>
     </p>
-    <br><br>
+    
     <div class="centrado">
-        <button class="boton" onclick="mandaSiegfried()">Salir</button>
+        <button class="boton" onclick="mandaLinkWeb()">Salir</button>
     </div>
     <script type="text/javascript">
         let numAciertos = 0;
 
-        function mandaSiegfried(){
-            window.location.href = 'https://www.siegfried.com.mx'
+        function mandaLinkWeb(){
+            window.location.href = 'https://www.hbomax.com/mx/es'
         }
 
             async function cargaResultados(){
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
-                let idUsuario = urlParams.get('idUsuario') 
-                numAciertos = urlParams.get('numAciertos') 
+                let idUsuario = parseInt(urlParams.get('idUsuario'));
+                numAciertos = parseInt(urlParams.get('numAciertos')) 
                 let numPreguntas = urlParams.get('numPreguntas') 
+                let tiempoRegistroJuegos = parseInt(urlParams.get('tiempoCuestionario'));
                 document.getElementById("numeroAciertos").innerHTML = numAciertos + " / " + numPreguntas
-                
-                if (numAciertos >= 3){
+                document.getElementById("textotiempoCuestionario").innerHTML = (tiempoRegistroJuegos/1000) + " segundos"
+
+                if (numAciertos >= 0){
                     document.getElementById("textoGanador").className = "texto mostrar centrado"
                      
                     let botonRegresar = getCookie("botonRegresar")
                     if (botonRegresar == false){
                             const data = {
                                 "idUsuario" : idUsuario,
+                                "resultadoRegistroJuego" : numAciertos,
+                                "tiempoRegistroJuegos" : tiempoRegistroJuegos
+
                             }
                             const dataJson = JSON.stringify(data)
 
@@ -70,11 +74,11 @@
                             };
                             
                             try {
-                            const fetchResponse = await fetch(`https://mosaico.app:4000/siegfried/guardaGanador`, settings);
+                            const fetchResponse = await fetch(`https://mosaico.app:4000/watchpartytnt/guardaRegistroJuego`, settings);
                             const data = await fetchResponse.json();
                             resul = data.statusCode
                             if(resul == 200){
-                                console.log("Email enviado correctamente")
+                                console.log("Registro de juego guardado correctamente")
                             }else{
                                 console.log("Error: " + data.message)
                             }

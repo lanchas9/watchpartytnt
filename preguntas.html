@@ -6,22 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/contador2.css">
-    <title>SIEGFRIED - Encuentro de Expertos</title>
+    <title>watchpartytnt.com</title>
 </head>
 <body onload="cargaPreguntas()">
-    <div class="centrado">
-        <img src="img/logo1.png" alt="" srcset="" class="logoTitulo">
-    </div>
+    <img src="img/banner.jpg" alt="" srcset="" class="logoTitulo">
     <!-- <div class="container"></div> -->
     <div id="app" class="app"></div>
     <br>
-    <p class="textoTitulo3" id="tituloPregunta">Título pregunta</p>
-    <p class="respuestas" id="respuestas01" onclick="asignaRespuesta(1)">Opción respuesta 1</p>
-    <p class="respuestas" id="respuestas02" onclick="asignaRespuesta(2)">Opción respuesta 2</p>
-    <p class="respuestas" id="respuestas03" onclick="asignaRespuesta(3)">Opción respuesta 3</p>
-    <p class="respuestas" id="respuestas04" onclick="asignaRespuesta(4)">Opción respuesta 4</p>
-    <p class="respuestas" id="respuestas05" onclick="asignaRespuesta(5)">Opción respuesta 5</p>
-    <p class="respuestas" id="respuestas06" onclick="asignaRespuesta(6)">Opción respuesta 6</p>
+    <p class="textoTitulo3" id="tituloPregunta"></p>
+    <p class="respuestas" id="respuestas01" onclick="asignaRespuesta(1)"></p>
+    <p class="respuestas" id="respuestas02" onclick="asignaRespuesta(2)"></p>
+    <p class="respuestas" id="respuestas03" onclick="asignaRespuesta(3)"></p>
     <div class="centrado">
         <button class="boton" onclick="paraCronometro()">Siguiente</button>
     </div>
@@ -31,6 +26,8 @@
         let respuestas = [];
         let idUsuario = 0;
         let numPreguntas = 0;
+        let tiempoInicio = 0;
+        
 
         function paraCronometro(){
             timeLeft=0;
@@ -42,9 +39,6 @@
             document.getElementById("respuestas01").className = "respuestas"
             document.getElementById("respuestas02").className = "respuestas"
             document.getElementById("respuestas03").className = "respuestas"
-            document.getElementById("respuestas04").className = "respuestas"
-            document.getElementById("respuestas05").className = "respuestas"
-            document.getElementById("respuestas06").className = "respuestas"
             document.getElementById("respuestas0"+resp).className = "respuestas respuestaSelecionada"
         }
 
@@ -54,9 +48,6 @@
                 document.getElementById("respuestas01").className = "respuestas"
                 document.getElementById("respuestas02").className = "respuestas"
                 document.getElementById("respuestas03").className = "respuestas"
-                document.getElementById("respuestas04").className = "respuestas"
-                document.getElementById("respuestas05").className = "respuestas"
-                document.getElementById("respuestas06").className = "respuestas"
                 configuraPreguntas();
             }else{
                 evaluaRespuestas()
@@ -72,14 +63,19 @@
                 contador +=1
                 }
             });
-            guardaCookie(true, contador, numPreguntas)
-            window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${contador}&numPreguntas=${numPreguntas}`;  
+            const d = new Date();
+            let tiempoFinal = d.getTime();
+            let tiempoCuestionario = tiempoFinal - tiempoInicio
+
+            guardaCookie(true, contador, numPreguntas,tiempoCuestionario)            
+            window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${contador}&numPreguntas=${numPreguntas}&tiempoCuestionario=${tiempoCuestionario}`;  
         }
 
-        function guardaCookie(yaContesto, numAciertos, numPreguntas){
+        function guardaCookie(yaContesto, numAciertos, numPreguntas, tiempoCuestionario){
             setCookie("yaContesto", yaContesto, 10);
             setCookie("numAciertos", numAciertos, 10);
             setCookie("numPreguntas", numPreguntas, 10);
+            setCookie("tiempoCuestionario", tiempoCuestionario, 10);
         }
 
         async function cargaPreguntas(){
@@ -87,14 +83,17 @@
             const urlParams = new URLSearchParams(queryString);
             idUsuario = urlParams.get('idUsuario') 
             console.log({idUsuario})
+            const d = new Date();
+            tiempoInicio = d.getTime();
 
             let yaContesto = getCookie("yaContesto")
             let numAciertosCookie = getCookie("numAciertos")
             let numPreguntasCookie = getCookie("numPreguntas")
+            let tiempoCuestionario = getCookie("tiempoCuestionario")
 
             if (yaContesto){
                 setCookie("botonRegresar", true, 10);
-                window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${numAciertosCookie}&numPreguntas=${numPreguntasCookie}`;  
+                window.location.href = `resultado.html?idUsuario=${idUsuario}&numAciertos=${numAciertosCookie}&numPreguntas=${numPreguntasCookie}&tiempoCuestionario=${tiempoCuestionario}`;  
             }
             
             const settings = {
@@ -105,7 +104,7 @@
                 },
                  };
                 try {
-                    const fetchResponse = await fetch(`https://mosaico.app:4000/siegfried/dameMis6Preguntas`, settings);
+                    const fetchResponse = await fetch(`https://mosaico.app:4000/watchpartytnt/dameTodasPreguntas`, settings);
                     const data = await fetchResponse.json();
                     preguntas = data.preguntasData
                     console.log("# Preguntas: " + preguntas.length)
@@ -125,9 +124,6 @@
             document.getElementById("respuestas01").innerHTML = preguntas[preguntaActual].textoRespuesta1
             document.getElementById("respuestas02").innerHTML = preguntas[preguntaActual].textoRespuesta2
             document.getElementById("respuestas03").innerHTML = preguntas[preguntaActual].textoRespuesta3
-            document.getElementById("respuestas04").innerHTML = preguntas[preguntaActual].textoRespuesta4
-            document.getElementById("respuestas05").innerHTML = preguntas[preguntaActual].textoRespuesta5
-            document.getElementById("respuestas06").innerHTML = preguntas[preguntaActual].textoRespuesta6
             startTimer();
         }
         </script>

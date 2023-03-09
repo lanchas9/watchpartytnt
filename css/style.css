@@ -18,9 +18,12 @@ body {
 
 .logoTitulo{
     align-items: center;
-    width: 60%;
-    margin-top: 10%;
-    max-width: 400px;
+    width: 100%;
+    margin-top: 0%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
 }
 
 .texto{
@@ -37,7 +40,7 @@ body {
 .boton{
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     border-radius: 12px 0px 12px 0px; 
-    background-color: #ed1c24  ; 
+    background-color: #513b84  ; 
     border: none;
     color: white;
     padding-top : 16px;
@@ -49,6 +52,7 @@ body {
     font-size: 24px;
     width: 70%;
     max-width: 400px;
+    margin-top: 10%;
     margin-bottom: 10%;
 }
 
@@ -74,6 +78,26 @@ body {
     margin-top: 10px;
 }
 
+.divisionMoradaArriba{
+    color: #513b84;
+    background-color: #513b84;
+    height: 6px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 0px;
+    margin-top: 5%;
+    margin-bottom: 10px;
+}
+
+.divisionMoradaAbajo{
+    color: #513b84;
+    background-color: #513b84   ;
+    height: 6px;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 10%;
+    margin-top: 10px;
+}
 .textoTitulo{
     font-weight: 600;
     font-size: 32px;
@@ -105,6 +129,14 @@ body {
     text-align: center;
 }
 
+.mensajeResultado{
+    color: #513b84;
+    height: 30px;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+
 .textoTitulo3{
     font-weight: 600;
     font-size: 18px;
@@ -118,29 +150,33 @@ body {
 }
 
 .respuestas{
-    color: #002156;
+    color: white;
     height: 30px;
     font-weight: 600;
     font-size: 18px;
     text-align: center;
-    background-color: lightcoral;
+    background-color: MediumPurple;
     margin-top: 1%;
     width: 80%;
-    height: 40px;
+    /* height: 60px; */
     margin-left: 10%;
     margin-right: 10%;
-    border-color: #ed1c24;
+    border-color: purple;
     border-style: solid;
     border-width: 3px;
-    line-height: 2.5;
-    display: inline-block;
-    vertical-align: middle;
+    /* line-height: 3.0; */
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+    /* vertical-align: middle; */
     border-radius: 12px 0px 12px 0px; 
+    word-wrap: break-word;
 }
 
 .respuestaSelecionada{
-    background-color: #002156; 
-    border-color: #ed1c24;
+    background-color: purple; 
+    border-color: MediumPurple;
     color: white;
 }
 

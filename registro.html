@@ -5,17 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>SIEGFRIED - Encuentro de Expertos</title>
+    <title>watchpartytnt.com</title>
 </head>
 <body>
-    <div class="centrado">
-        <img src="img/logo1.png" alt="" srcset="" class="logoTitulo">
-    </div>
-    <hr class="divisionRojaArriba">
+    <img src="img/banner.jpg" alt="" srcset="" class="logoTitulo" onclick="borraCookie()">
+    <hr class="divisionMoradaArriba">
     <div class="divCentrado">
         <span class="textoTitulo">Registro</span>
     </div>
-    <hr class="divisionRojaAbajo">
+    <hr class="divisionMoradaAbajo">
     <br>
     <p class="texto">Nombre Completo</p>
     <input type="text" class="inputDatos" id="nombreUsuario" >
@@ -29,6 +27,10 @@
     </div>
     <p class="mensajeError" id="mensajeError"></p>
     <script type="text/javascript">
+        function borraCookie(){
+            guardaCookie("yaContesto","")
+        }
+
         async function validaDatos() {
             document.getElementById("mensajeError").innerHTML = ""
             let nombreUsuario = new String(document.getElementById("nombreUsuario").value);
@@ -100,13 +102,13 @@
                     dataJson
                  };
                 try {
-                    const fetchResponse = await fetch(`https://mosaico.app:4000/siegfried/guardaUsuario`, settings);
+                    const fetchResponse = await fetch(`https://mosaico.app:4000/watchpartytnt/guardaUsuario`, settings);
                     const data = await fetchResponse.json();
                     console.log("Data" + JSON.stringify(data))
                     
                     if(data.statusCode == 200){
                         resul.statusCode = data.statusCode
-                        resul.idUsuario = data.insertId
+                        resul.idUsuario = data.message[0].idUsuario
                         resul.message = data.message
                     }else{                        
                         resul.statusCode = data.statusCode

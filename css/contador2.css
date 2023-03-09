@@ -47,6 +47,14 @@
     color: red;
   }
   
+  .base-timer__path-remaining.purple {
+    color: purple;
+  }
+  
+  .base-timer__path-remaining.yellow {
+    color: yellow;
+  }
+  
   .base-timer__label {
     position: absolute;
     width: 120px;

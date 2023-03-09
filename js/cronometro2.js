@@ -1,15 +1,15 @@
 // Credit: Mateusz Rybczonec
 
 const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 6;
-const ALERT_THRESHOLD = 3;
+const WARNING_THRESHOLD = 7;
+const ALERT_THRESHOLD = 4;
 
 const COLOR_CODES = {
   info: {
-    color: "green"
+    color: "purple"
   },
   warning: {
-    color: "orange",
+    color: "yellow",
     threshold: WARNING_THRESHOLD
   },
   alert: {
@@ -18,7 +18,7 @@ const COLOR_CODES = {
   }
 };
 
-const TIME_LIMIT = 15;
+const TIME_LIMIT = 150;
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
