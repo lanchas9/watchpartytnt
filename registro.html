@@ -17,10 +17,10 @@
     <br>
     <p class="texto">Nombre Completo</p>
     <input type="text" class="inputDatos" id="nombreUsuario" >
-    <p class="texto">Correo (con acceso en el teléfono)</p>
+    <p class="texto">Correo Electrónico</p>
     <input type="email" class="inputDatos" id="correoUsuario" >
-    <p class="texto">Celular (10 dígitos)</p>
-    <input type="number" class="inputDatos" id="celularUsuario" >
+    <!-- <p class="texto">Celular (10 dígitos)</p>
+    <input type="number" class="inputDatos" id="celularUsuario" > -->
     <br><br>
     <div class="centrado">
         <button class="boton" onclick="validaDatos()">Guardar</button>
@@ -35,7 +35,8 @@
             document.getElementById("mensajeError").innerHTML = ""
             let nombreUsuario = new String(document.getElementById("nombreUsuario").value);
             let correoUsuario = new String(document.getElementById("correoUsuario").value);
-            let celularUsuario = new String(document.getElementById("celularUsuario").value);
+            // let celularUsuario = new String(document.getElementById("celularUsuario").value);
+            let celularUsuario = "1234567890"
             
             let valido = true
             let mensaje = ""
