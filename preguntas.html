@@ -104,7 +104,7 @@
                 },
                  };
                 try {
-                    const fetchResponse = await fetch(`https://mosaico.app:4000/watchpartytnt/dameTodasPreguntas`, settings);
+                    const fetchResponse = await fetch(`https://mosaico.app:4000/watchpartytnt/dameTodasPreguntas2`, settings);
                     const data = await fetchResponse.json();
                     preguntas = data.preguntasData
                     console.log("# Preguntas: " + preguntas.length)
